@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on hoppydata - beer, bacon &amp; big data</title>
-    <link>/hoppydata/blog/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on hoppydata - beer, bacon &amp; big data</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 10 Oct 2015 13:07:31 +0200</lastBuildDate>
     
-	<atom:link href="/hoppydata/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hugo</title>
-      <link>/hoppydata/blog/tags/hugo/</link>
+      <link>/tags/hugo/</link>
       <pubDate>Sat, 10 Oct 2015 13:07:31 +0200</pubDate>
       
-      <guid>/hoppydata/blog/tags/hugo/</guid>
+      <guid>/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Jekyll</title>
-      <link>/hoppydata/blog/tags/jekyll/</link>
+      <link>/tags/jekyll/</link>
       <pubDate>Sat, 10 Oct 2015 13:07:31 +0200</pubDate>
       
-      <guid>/hoppydata/blog/tags/jekyll/</guid>
+      <guid>/tags/jekyll/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Migration</title>
-      <link>/hoppydata/blog/tags/migration/</link>
+      <link>/tags/migration/</link>
       <pubDate>Sat, 10 Oct 2015 13:07:31 +0200</pubDate>
       
-      <guid>/hoppydata/blog/tags/migration/</guid>
+      <guid>/tags/migration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Plot</title>
-      <link>/hoppydata/blog/tags/plot/</link>
+      <link>/tags/plot/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/hoppydata/blog/tags/plot/</guid>
+      <guid>/tags/plot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>/hoppydata/blog/tags/r-markdown/</link>
+      <link>/tags/r-markdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/hoppydata/blog/tags/r-markdown/</guid>
+      <guid>/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Regression</title>
-      <link>/hoppydata/blog/tags/regression/</link>
+      <link>/tags/regression/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/hoppydata/blog/tags/regression/</guid>
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
