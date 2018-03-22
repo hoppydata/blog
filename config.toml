@@ -1,42 +1,111 @@
-baseurl = "/"
-languageCode = "en-us"
-title = "hoppydata - beer, bacon & big data"
-# Define how many pages appear per site
-paginate = 10
-# Enable comments powered by Disqus by entering your disqus shortname
-disqusShortname = "hoppydata"
+baseURL = "/"
+title = "Hoppy Panda"
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-# Enable gogle analytics by entering your tracking code
+theme = "minimo"
+
+disqusShortname = ""
 googleAnalytics = ""
-theme = "hugo-minimalist-theme"
-# Remove this line if you use this theme for a real website.
-# It allows you to preview the theme within the exampleSite folder
-# with the hugo server command
 
-[params]
-    site_author = "Daniel Dekic"
-    site_description = "The awesome blog."
-    location = "Earth"
-    # Link custom assets relative to /static
-    avatar = "img/profile_picture_200.png"
-    header_background = "img/cover_photo.png"
-    header_title = ""
-    copyright = "Powered by [Hugo](http://gohugo.io)."
-    custom_css = []
-    custom_js  = []
+Paginate = 5
+preserveTaxonomyNames = true
 
-    # Enable gogle analytics by entering your tracking code
-    google_analytics = ""
+enableRobotsTXT = true # generate robots.txt
 
-[social]
-    # Add your social network accounts to the profile section on the left
-    # by entering your username. The links to your account will be
-    # create automatically.
-    twitter   = "hoppydata"
-    facebook  = ""
-    linkedin  = ""
-    behance   = ""
-    dribbble  = ""
-    instagram = ""
-    github    = "hoppydata"
-    gplus     = ""
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+
+enableEmoji = true
+
+# Missing translations will default to this content language
+defaultContentLanguage = "en"
+
+[params.info]
+description = "Brewery & Beer"
+title404 = "Nothing's here!"
+
+[params.assets]
+favicon = "favicon_symbol.png"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+gopher = "" # used in 404 template ( Generator: https://gopherize.me )
+
+[params.copyright]
+prefix = ""
+holder = "Panda"
+startYear = "2017"
+suffix = ""
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+archiveDateFormat = "Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+hideSocialMenu = false
+showReadingTime = true
+taxonomyCloudShuffle = true
+accentColor = "#ffcd00"
+
+[params.sidebar]
+enable = true
+sticky = true
+
+[params.widgets]
+homepage = ["recent_posts"]
+sidebar = ["about","taxonomy_cloud"]
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+codepen = " "
+email = "hoppypanda@gmail.com"
+facebook = ""
+github = ""
+gitlab = ""
+instagram = ""
+linkedin = ""
+twitter = ""
+telegram = ""
+google_scholar = "qc6CJjYAAAAJ"
+
+[taxonomies]
+author = "authors"
+category = "categories"
+tag = "tags"
+
+[permalinks]
+page = "/:slug/"
+
+[[menu.main]]
+name = "Brewery"
+weight = -90
+identifier = "Brewery"
+url = "http://hofmuehlbrauer.at/"
+
+[[menu.main]]
+name = "Posts"
+weight = -100
+identifier = "posts"
+url = "/post/"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[languages]
+# edit this block for your own language
+[languages.en]
+lang = "en"
+languageName = "English"
+weight = 1
