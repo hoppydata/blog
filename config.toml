@@ -95,23 +95,10 @@ identifier = "Brewery"
 url = "http://hofmuehlbrauer.at/"
 
 [[menu.main]]
-name = "About"
-weight = -80
-identifier = "about"
-url = ""
-
-[[menu.main]]
 name = "Posts"
 weight = -100
 identifier = "posts"
 url = "/post/"
-
-[[menu.main]]
-name = "Posts"
-weight = -80
-identifier = "about"
-url = "/about/"
-
 
 [blackfriday]
 hrefTargetBlank = true
