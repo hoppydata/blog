@@ -69,16 +69,12 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-codepen = " "
 email = "hoppypanda@gmail.com"
-facebook = ""
+facebook = "B"
 github = "hoppydata"
-gitlab = ""
 instagram = ""
 linkedin = "daniel-dekic-00542313/"
 twitter = "hoppydata"
-telegram = ""
-google_scholar = ""
 
 [taxonomies]
 author = "authors"
