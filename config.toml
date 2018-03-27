@@ -22,7 +22,7 @@ enableEmoji = true
 defaultContentLanguage = "en"
 
 [params.info]
-description = "Brewery & Beer"
+description = "Brewery & Data"
 title404 = "Nothing's here!"
 
 [params.assets]
@@ -87,6 +87,13 @@ tag = "tags"
 
 [permalinks]
 page = "/:slug/"
+
+
+[[menu.main]]
+name = "About"
+weight = -80
+identifier = "About"
+url = "/about/"
 
 [[menu.main]]
 name = "Brewery"

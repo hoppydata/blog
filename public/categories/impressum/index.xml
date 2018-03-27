@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Impressum on Hoppy Data</title>
+    <link>/categories/impressum/</link>
+    <description>Recent content in Impressum on Hoppy Data</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/impressum/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Impressum &amp; Datenschutz</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Kontakt hoppydata@gmail.com
+Grundlegende Richtung Dieser private, nicht kommerzielle Weblog wird von Sarah Surenjan betrieben. Die Seite dient der Information über Rezepte und Lifestyle. Beiträge spiegeln ausschließlich die subjektive Meinung der Autorin wieder.
+Copyright Der Inhalt dieser Website ist urheberrechtlich geschützt. Die Informationen sind nur für die persönliche Verwendung bestimmt. Jede weitergehende Nutzung insbesondere die Speicherung in Datenbanken, Vervielfältigung und jede Form von gewerblicher Nutzung sowie die Weitergabe an Dritte – auch in Teilen oder in überarbeiteter Form – ohne Zustimmung des Website-Inhabers ist untersagt.</description>
+    </item>
+    
+  </channel>
+</rss>
