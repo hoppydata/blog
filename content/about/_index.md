@@ -3,6 +3,7 @@ date: "2018-01-01"
 title: "Impressum & Datenschutz"
 categories: ["Impressum", "Datenschutz"]
 tags: ["Impressum", "Datenschutz"]
+authors: ["daniel"]
 draft: true
 ---
 

@@ -1,0 +1,13 @@
+id = "daniel"
+
+[email]
+username = "daniel"
+host = "gmail.com"
+
+[name]
+display = "Daniel D."
+
+[social]
+email = "hoppydata@gmail.com"
+facebook  = ""
+twitter = "hoppydata"
