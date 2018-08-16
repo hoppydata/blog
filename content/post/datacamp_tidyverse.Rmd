@@ -1,0 +1,802 @@
+---
+title: "Datacamp Tidyverse"
+author: "Daniel D"
+date: "`r Sys.Date()`"
+categories: ["R"]
+tags: ["R Markdown", "plot", "regression"]
+output:
+  rmarkdown::html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: TRUE
+    code_folding: hide
+    df_print: paged
+---
+
+
+# Motivation
+
+<a href="https://www.youtube.com/watch?v=jbkSRLYSojo
+" target="_blank"><img src="http://img.youtube.com/vi/jbkSRLYSojo/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="640" height="480" border="10" /></a>
+
+# Data wrangling
+## Loading the gapminder and dplyr packages
+
+```{r,warning=FALSE}
+# Load the gapminder package
+library(gapminder)
+
+# Load the dplyr package
+library(dplyr)
+
+# Look at the gapminder dataset
+gapminder
+```
+
+### Understanding a data frame
+```{r}
+# How many observations (rows) are in the dataset?
+nrow(gapminder)
+```
+
+
+## The filter verb
+### Filtering for one year
+```{r}
+# Filter the gapminder dataset for the year 1957
+gapminder %>% filter(year==1957)
+```
+
+### Filtering for one country and one year
+
+```{r}
+# Filter for China in 2002
+gapminder %>% filter(country=="China",year==2002)
+```
+
+## The arrange verb
+
+### Arranging observations by life expectancy
+```{r}
+# Sort in ascending order of lifeExp
+gapminder %>% arrange(lifeExp)
+  
+# Sort in descending order of lifeExp
+gapminder %>% arrange(desc(lifeExp))
+```
+
+### Filtering and arranging
+
+```{r}
+# Filter for the year 1957, then arrange in descending order of population
+gapminder %>% filter(year==1957)%>%arrange(desc(pop))
+```
+
+## The mutate verb
+### Using mutate to change or create a column
+
+```{r}
+# Use mutate to change lifeExp to be in months
+gapminder %>% mutate(lifeExp = 12 * lifeExp)
+
+# Use mutate to create a new column called lifeExpMonths
+gapminder %>% mutate(lifeExpMonths = 12 * lifeExp)
+```
+
+### Combining filter, mutate, and arrange 
+
+```{r}
+# Filter, mutate, and arrange the gapminder dataset
+gapminder %>% 
+filter(year==2007) %>%
+mutate(lifeExpMonths = 12 * lifeExp) %>%
+arrange(desc(lifeExpMonths))
+```
+
+## Data visualization
+
+### Variable assignment
+```{r}
+# Load the ggplot2 package as well
+library(ggplot2)
+
+# Create gapminder_1952
+gapminder_1952 <- gapminder %>% filter(year==1952) 
+```
+
+### Comparing population and GDP per capita
+
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Change to put pop on the x-axis and gdpPercap on the y-axis
+ggplot(gapminder_1952, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+
+# Change to put pop on the x-axis and gdpPercap on the y-axis
+ggplot(gapminder_1952, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+
+ggplot(gapminder_1952, aes(x = pop, y = gdpPercap)) +
+  geom_point()
+```
+
+### Comparing population and life expectancy
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a scatter plot with pop on the x-axis and lifeExp on the y-axis
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) +
+  geom_point()
+```
+
+## Log Scales
+### Putting the x-axis on a log scale
+
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Change this plot to put the x-axis on a log scale
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) +
+  geom_point()+scale_x_log10()
+```
+
+### Putting the x- and y- axes on a log scale
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Scatter plot comparing pop and gdpPercap, with both axes on a log scale
+ggplot(gapminder_1952, aes(x = pop, y = gdpPercap)) +
+  geom_point()+scale_x_log10() +
+  scale_y_log10()
+```
+
+
+### Adding color to a scatter plot
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Scatter plot comparing pop and lifeExp, with color representing continent
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp,color=continent)) +
+  geom_point()+scale_x_log10() +
+  scale_y_log10()
+```
+
+### Adding size and color to a plot
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Add the size aesthetic to represent a country's gdpPercap
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent,size=gdpPercap)) +
+  geom_point() +
+  scale_x_log10()
+```
+
+## Faceting
+### Creating a subgraph for each continent
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Scatter plot comparing pop and lifeExp, faceted by continent
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) +
+  geom_point() +
+  scale_x_log10()+
+  facet_wrap(~ continent)
+```
+
+### Faceting by year
+```{r}
+# Scatter plot comparing gdpPercap and lifeExp, with color representing continent
+# and size representing population, faceted by year
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp,color=continent,size=pop)) +
+  geom_point() +
+  scale_x_log10()+
+  facet_wrap(~ year)
+```
+
+## Grouping and summarizing
+### Summarizing the median life expectancy
+
+```{r}
+# Summarize to find the median life expectancy
+gapminder %>% summarise(medianLifeExp = median(lifeExp))
+```
+
+### Summarizing the median life expectancy in 1957
+
+```{r}
+# Filter for 1957 then summarize the median life expectancy
+gapminder %>% 
+filter(year==1957) %>%
+summarise(medianLifeExp = median(lifeExp))
+```
+
+### Summarizing multiple variables in 1957
+
+```{r}
+# Filter for 1957 then summarize the median life expectancy and the maximum GDP per capita
+gapminder %>% 
+filter(year == 1957) %>%
+summarise(medianLifeExp = median(lifeExp),
+      maxGdpPercap = max(gdpPercap))
+```
+
+## group_by verb
+### Summarizing by year
+
+```{r}
+# Find median life expectancy and maximum GDP per capita in each year
+
+gapminder %>% 
+group_by(year) %>%
+summarise(medianLifeExp = median(lifeExp),
+      maxGdpPercap = max(gdpPercap))
+```
+
+### Summarizing by continent
+
+```{r}
+# Find median life expectancy and maximum GDP per capita in each continent in 1957
+
+gapminder %>% 
+filter(year == 1957) %>%
+group_by(continent) %>%
+summarise(medianLifeExp = median(lifeExp),
+      maxGdpPercap = max(gdpPercap))
+```
+
+### Summarizing by continent and year
+
+```{r}
+# Find median life expectancy and maximum GDP per capita in each year/continent combination
+gapminder %>% 
+group_by(continent,year) %>%
+summarise(medianLifeExp = median(lifeExp),
+      maxGdpPercap = max(gdpPercap))
+```
+
+## Visualizing summarized data
+### Visualizing median life expectancy over time
+
+```{r}
+by_year <- gapminder %>%
+  group_by(year) %>%
+  summarize(medianLifeExp = median(lifeExp),
+            maxGdpPercap = max(gdpPercap))
+
+# Create a scatter plot showing the change in medianLifeExp over time
+by_year %>% 
+ggplot(aes(x=year,y=medianLifeExp))+
+geom_point()+expand_limits(y = 0)
+```
+
+### Visualizing median GDP per capita per continent over time
+
+```{r}
+# Summarize medianGdpPercap within each continent within each year: by_year_continent
+by_year_continent <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(medianGdpPercap = median(gdpPercap))
+
+# Plot the change in medianGdpPercap in each continent over time
+by_year_continent %>% 
+ggplot(aes(x=year,y=medianGdpPercap,color=continent))+
+geom_point()+expand_limits(y = 0)
+```
+
+### Comparing median life expectancy and median GDP per continent in 2007
+
+```{r}
+# Summarize the median GDP and median life expectancy per continent in 2007
+by_continent_2007 <- gapminder %>%
+  filter(year == 2007) %>%
+  group_by(continent) %>% 
+  summarize(medianLifeExp = median(lifeExp), 
+  medianGdpPercap = median(gdpPercap))
+
+
+# Use a scatter plot to compare the median GDP and median life expectancy
+by_continent_2007 %>% 
+ggplot(aes(x=medianGdpPercap,y=medianLifeExp,color=continent))+
+geom_point()+expand_limits(y = 0)
+```
+
+## Types of visualizations
+## Line plots
+### Visualizing median GDP per capita over time
+```{r}
+# Summarize the median gdpPercap by year, then save it as by_year
+by_year <- gapminder %>%
+group_by(year)%>%
+summarise(medianGdpPercap = median(gdpPercap))
+
+# Create a line plot showing the change in medianGdpPercap over time
+by_year %>% 
+ggplot(aes(x=year,y=medianGdpPercap))+
+geom_line()+expand_limits(y = 0)
+```
+
+### Visualizing median GDP per capita by continent over time
+
+```{r}
+# Summarize the median gdpPercap by year & continent, save as by_year_continent
+by_year_continent <- gapminder %>%
+group_by(continent, year)%>%
+summarise(medianGdpPercap = median(gdpPercap))
+
+# Create a line plot showing the change in medianGdpPercap by continent over time
+by_year_continent %>% 
+ggplot(aes(x=year,y=medianGdpPercap,color=continent))+
+geom_line()+expand_limits(y = 0)
+```
+
+## Bar Plots
+
+### Visualizing median GDP per capita by continent
+
+```{r}
+# Summarize the median gdpPercap by year and continent in 1952
+by_continent<- gapminder %>%
+filter(year==1952) %>%
+group_by(continent) %>%
+summarise(medianGdpPercap = median(gdpPercap))
+
+
+# Create a bar plot showing medianGdp by continent
+by_continent %>% 
+ggplot(aes(x=continent,y=medianGdpPercap))+
+geom_col()
+```
+
+### Visualizing GDP per capita by country in Oceania
+
+```{r}
+# Filter for observations in the Oceania continent in 1952
+oceania_1952<- gapminder %>%
+filter(continent=="Oceania",year==1952)
+
+# Create a bar plot of gdpPercap by country
+oceania_1952 %>% 
+ggplot(aes(x=country,y=gdpPercap))+
+geom_col()
+```
+
+## Histograms
+
+### Visualizing population
+
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a histogram of population (pop)
+gapminder_1952 %>% 
+ggplot(aes(x=pop))+
+geom_histogram()
+```
+
+### Visualizing population with x-axis on a log scale
+
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a histogram of population (pop), with x on a log scale
+gapminder_1952 %>% 
+ggplot(aes(x=pop))+
+geom_histogram()+
+scale_x_log10()
+```
+
+## Box Plots
+### Comparing GDP per capita across continents
+
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a boxplot comparing gdpPercap among continents
+gapminder_1952 %>% 
+ggplot(aes(x=continent,y=gdpPercap))+
+geom_boxplot()+
+scale_y_log10()
+```
+
+### Adding a title to your graph
+```{r}
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Add a title to this graph: "Comparing GDP per capita across continents"
+ggplot(gapminder_1952, aes(x = continent, y = gdpPercap)) +
+  geom_boxplot() +
+  scale_y_log10()+
+  ggtitle("Comparing GDP per capita across continents")
+```
+
+******
+
+******
+
+******
+
+******
+
+<!-- # Deep Dive Example -->
+
+<!-- ```{r} -->
+<!-- library(dplyr) -->
+<!-- library(tidyr) -->
+<!-- library(purrr) -->
+<!-- library(ggplot2) -->
+<!-- library(broom) -->
+<!-- library(countrycode) -->
+<!-- library(stringr) -->
+<!-- library(data.table) -->
+
+<!-- votes <- readRDS('data/votes.rds') -->
+<!-- descriptions <- readRDS('data/descriptions.rds') -->
+<!-- votes -->
+<!-- descriptions -->
+<!-- ``` -->
+
+<!-- The vote column in the dataset has a number that represents that country's vote: -->
+
+<!--   * 1 = Yes -->
+<!--   * 2 = Abstain -->
+<!--   * 3 = No -->
+<!--   * 8 = Not present -->
+<!--   * 9 = Not a member -->
+
+<!-- One step of data cleaning is removing observations (rows) that you're not interested in. In this case, you want to remove "Not present" and "Not a member". -->
+<!--   * The first session was in 1946. That is session 1. -->
+<!--   * There is one session per year. -->
+<!--   * So, year = session + 1945 -->
+
+<!--  ### Adding a country column -->
+<!-- ```{r} -->
+<!-- # Convert country code 100 -->
+<!-- countrycode(100, "cown", "country.name") -->
+
+<!-- # Add a country column within the mutate: votes_processed -->
+<!-- votes_processed <- votes %>% -->
+<!--   filter(vote <= 3) %>% -->
+<!--   mutate( -->
+<!--     year = session + 1945, -->
+<!--     country = countrycode(ccode, "cown", "country.name"), -->
+<!--     country = recode(country,  -->
+<!--                      'United States of America' =  'United States', -->
+<!--                      'United Kingdom of Great Britain and Northern Ireland' = 'United Kingdom') -->
+<!--     ) -->
+<!-- votes_processed$country<-ifelse(votes_processed$ccode==260,"German Federal Republic",votes_processed$country) -->
+<!-- votes_processed$country<-ifelse(votes_processed$ccode==816,"Vietnam",votes_processed$country) -->
+<!-- votes_processed -->
+
+<!-- # Find total and fraction of "yes" votes -->
+<!-- votes_processed %>% -->
+<!--   summarise( -->
+<!--     total = n(), -->
+<!--     percent_yes = mean(vote == 1) -->
+<!--     ) -->
+<!-- ``` -->
+
+<!-- ### Summarizing by year -->
+
+<!-- ```{r} -->
+<!-- # Change this code to summarize by year -->
+<!-- votes_processed %>% -->
+<!--   group_by(year) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+<!-- ``` -->
+
+<!-- ### Summarizing by country -->
+
+<!-- ```{r} -->
+<!-- # Summarize by country: by_country -->
+<!-- by_country <- votes_processed %>% -->
+<!--   group_by(country) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+
+<!-- by_country -->
+<!-- ``` -->
+
+<!-- ## Sorting and filtering summarized data  -->
+
+<!-- ```{r} -->
+<!-- # You have the votes summarized by country -->
+<!-- by_country <- votes_processed %>% -->
+<!--   group_by(country) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+
+<!-- # Print the by_country dataset -->
+<!-- by_country -->
+
+<!-- # Sort in ascending order of percent_yes -->
+<!-- by_country %>% -->
+<!--   arrange(percent_yes) -->
+
+<!-- # Now sort in descending order -->
+<!-- by_country %>% -->
+<!--   arrange(desc(percent_yes)) -->
+<!-- ``` -->
+
+<!-- ### Filtering summarized output -->
+
+<!-- ```{r} -->
+<!-- # Filter out countries with fewer than 100 votes -->
+<!-- by_country %>% -->
+<!--   arrange(percent_yes) %>% -->
+<!--   filter(total >= 100) -->
+<!-- ``` -->
+
+<!-- ## Data visualization with ggplot2 -->
+
+<!-- ```{r} -->
+<!-- # Define by_year -->
+<!-- by_year <- votes_processed %>% -->
+<!--   group_by(year) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+
+<!-- # Load the ggplot2 package -->
+<!-- library(ggplot2) -->
+
+<!-- # Create line plot -->
+<!-- ggplot(by_year, aes(x = year, y = percent_yes)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+<!-- ### Other ggplot2 layers -->
+
+<!-- ```{r} -->
+<!-- # Change to scatter plot and add smoothing curve -->
+<!-- ggplot(by_year, aes(year, percent_yes)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth() -->
+<!-- ``` -->
+
+<!-- ### Visualizing by country -->
+
+<!-- ```{r} -->
+<!-- # Group by year and country: by_year_country -->
+<!-- by_year_country <- votes_processed %>% -->
+<!--   group_by(year, country) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+
+<!-- # Start with by_year_country dataset -->
+<!-- by_year_country <- votes_processed %>% -->
+<!--   group_by(year, country) %>% -->
+<!--   summarize(total = n(), -->
+<!--             percent_yes = mean(vote == 1)) -->
+
+<!-- # Print by_year_country -->
+<!-- by_year_country -->
+
+<!-- # Create a filtered version: UK_by_year -->
+<!-- UK_by_year <- by_year_country %>% -->
+<!--   filter(country == 'United Kingdom') -->
+
+<!-- # Line plot of percent_yes over time for UK only -->
+<!-- ggplot(UK_by_year, aes(x = year, y = percent_yes)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+<!-- ### Plotting multiple countries -->
+
+<!-- ```{r} -->
+<!-- # Vector of four countries to examine -->
+<!-- countries <- c("United States", "United Kingdom", -->
+<!--                "France", "India") -->
+
+<!-- # Filter by_year_country: filtered_4_countries -->
+<!-- filtered_4_countries <- by_year_country %>% -->
+<!--   filter(country %in% countries) -->
+
+<!-- # Line plot of % yes in four countries -->
+<!-- ggplot(filtered_4_countries, aes(x = year, y = percent_yes, color = country)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+<!-- ## Faceting -->
+
+<!-- ```{r} -->
+<!-- # Vector of six countries to examine -->
+<!-- countries <- c("United States", "United Kingdom", -->
+<!--                "France", "Japan", "Brazil", "India") -->
+
+<!-- # Filtered by_year_country: filtered_6_countries -->
+<!-- filtered_6_countries <- by_year_country %>% -->
+<!--   filter(country %in% countries) -->
+
+<!-- # Line plot of % yes over time faceted by country -->
+<!-- ggplot(filtered_6_countries, aes(x = year, y = percent_yes)) + -->
+<!--   geom_line() +  -->
+<!--   facet_wrap(~ country) -->
+<!-- ``` -->
+
+<!-- ### Faceting with free y-axis -->
+
+<!-- ```{r} -->
+<!-- # Vector of six countries to examine -->
+<!-- countries <- c("United States", "United Kingdom", -->
+<!--                "France", "Japan", "Brazil", "India") -->
+
+<!-- # Filtered by_year_country: filtered_6_countries -->
+<!-- filtered_6_countries <- by_year_country %>% -->
+<!--   filter(country %in% countries) -->
+
+<!-- # Line plot of % yes over time faceted by country -->
+<!-- ggplot(filtered_6_countries, aes(year, percent_yes)) + -->
+<!--   geom_line() + -->
+<!--   facet_wrap(~ country, scales = "free_y") -->
+<!-- ``` -->
+
+<!-- ### Choose your own countries -->
+
+<!-- ```{r} -->
+<!-- # Add three more countries to this list -->
+<!-- countries <- c("United States", "United Kingdom", -->
+<!--                "France", "Germany", "China", "India", "Argentina", "Canada","Uruguay") -->
+
+<!-- # Filtered by_year_country: filtered_countries -->
+<!-- filtered_countries <- by_year_country %>% -->
+<!--   filter(country %in% countries) -->
+
+<!-- # Line plot of % yes over time faceted by country -->
+<!-- ggplot(filtered_countries, aes(year, percent_yes)) + -->
+<!--   geom_line() + -->
+<!--   facet_wrap(~ country) -->
+<!-- ``` -->
+
+<!-- ## Joining datasets -->
+
+<!-- ```{r} -->
+<!-- # Print the votes_processed dataset -->
+<!-- votes_processed -->
+
+<!-- # Print the descriptions dataset -->
+<!-- descriptions -->
+
+<!-- # Join them together based on the "rcid" and "session" columns -->
+<!-- votes_joined <- inner_join(votes_processed, descriptions, by = c("rcid", "session")) -->
+<!-- ``` -->
+
+
+<!-- ## Filtering the joined dataset -->
+
+<!--   * me: Palestinian conflict -->
+<!--   * nu: Nuclear weapons and nuclear material -->
+<!--   * di: Arms control and disarmament -->
+<!--   * hr: Human rights -->
+<!--   * co: Colonialism -->
+<!--   * ec: Economic development -->
+
+<!-- ```{r} -->
+<!-- # Filter for votes related to colonialism -->
+<!-- votes_joined %>%  -->
+<!--   filter(co == 1) -->
+
+<!-- # Filter, then summarize by year: US_co_by_year -->
+<!-- US_co_by_year <- votes_joined %>% -->
+<!--   filter( -->
+<!--     co == 1, -->
+<!--     country == "United States" -->
+<!--     ) %>% -->
+<!--   group_by(year) %>% -->
+<!--   summarize(percent_yes = mean(vote == 1)) -->
+
+<!-- # Graph the % of "yes" votes over time -->
+<!-- ggplot(US_co_by_year, aes(x = year, y = percent_yes)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- # Load the tidyr package -->
+<!-- library(tidyr) -->
+
+<!-- # Gather the six mu/nu/di/hr/co/ec columns -->
+<!-- gather(votes_joined, me, nu, di, hr, co, ec,key=topic,value=has_topic) -->
+
+<!-- # Perform gather again, then filter -->
+<!-- votes_gathered <- gather(votes_joined, me, nu, di, hr, co, ec,key=topic,value=has_topic) %>%  -->
+<!-- filter(has_topic==1) -->
+<!-- votes_gathered -->
+<!-- ``` -->
+
+<!-- ### Recoding the topics -->
+
+<!-- ```{r} -->
+<!-- # Replace the two-letter codes in topic: votes_tidied -->
+<!-- votes_tidied <- votes_gathered %>% -->
+<!--   mutate(topic = recode(topic, -->
+<!--                         me = "Palestinian conflict", -->
+<!--                         nu = "Nuclear weapons and nuclear material", -->
+<!--                         di = "Arms control and disarmament", -->
+<!--                         hr = "Human rights", -->
+<!--                         co = "Colonialism", -->
+<!--                         ec = "Economic development")) -->
+
+<!-- # Print votes_tidied -->
+<!-- votes_tidied -->
+
+
+<!-- # Summarize the percentage "yes" per country-year-topic -->
+<!-- by_country_year_topic <- votes_tidied %>% -->
+<!--   group_by(country, year, topic) %>% -->
+<!--   summarize( -->
+<!--     total = n(), -->
+<!--     percent_yes = mean(vote == 1) -->
+<!--     ) %>% -->
+<!--   ungroup() -->
+
+<!-- # Print by_country_year_topic -->
+<!-- by_country_year_topic -->
+<!-- ``` -->
+
+
+<!-- ### Visualizing trends in topics for one country -->
+
+<!-- ```{r} -->
+<!-- # Load the ggplot2 package -->
+<!-- library(ggplot2) -->
+
+<!-- # Filter by_country_year_topic for just the US -->
+<!-- US_by_country_year_topic <- by_country_year_topic %>% -->
+<!--   filter(country == "United States") -->
+
+<!-- # Plot % yes over time for the US, faceting by topic -->
+<!-- ggplot(US_by_country_year_topic, aes(x = year, y = percent_yes)) +  -->
+<!--   geom_line() + -->
+<!--   facet_wrap(~ topic) -->
+<!-- ``` -->
+
+<!-- ### Checking models visually -->
+
+<!-- ```{r} -->
+<!-- filtered_by_country_year_topic <- by_country_year_topic %>% -->
+<!--   filter(country %in% c("United States", "United Kingdom", "France", "Romania", "Russia")) -->
+
+<!-- # Plot of percentage "yes" over time, faceted by topic -->
+<!-- ggplot(filtered_by_country_year_topic, aes(x = year, y = percent_yes, color = country)) + -->
+<!--   geom_point() +  -->
+<!--   geom_smooth(method = "loess") +  -->
+<!--   facet_wrap(~ topic)+ -->
+<!--   theme_minimal() -->
+<!-- ``` -->
+
+# Endgegner
+
+```{r}
+# install.packages('devtools')
+#devtools::install_github('thomasp85/gganimate')
+
+library(gapminder)
+library(gganimate)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
+```
+
+ 
