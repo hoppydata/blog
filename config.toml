@@ -69,7 +69,7 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-email = "hoppypanda@gmail.com"
+email = "hoppydata@gmail.com"
 facebook = "B"
 github = "hoppydata"
 instagram = ""
@@ -89,7 +89,7 @@ page = "/:slug/"
 name = "About"
 weight = -80
 identifier = "About"
-url = "/about/"
+url = "about/"
 
 [[menu.main]]
 name = "Brewery"
