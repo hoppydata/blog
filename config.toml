@@ -89,7 +89,7 @@ page = "/:slug/"
 name = "About"
 weight = -80
 identifier = "About"
-url = "about/"
+url = "/about/"
 
 [[menu.main]]
 name = "Brewery"
