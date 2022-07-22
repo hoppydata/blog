@@ -35,7 +35,7 @@
   "dependencies": {
     "algoliasearch": "^4.14.1",
     "es6-docready": "^1.0.1",
-    "fuse.js": "^3.2.1",
+    "fuse.js": "^6.6.2",
     "lunr": "^2.3.9",
     "normalize.css": "^8.0.0",
     "twemoji": "^14.0.2"
