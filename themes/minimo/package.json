@@ -14,7 +14,7 @@
     "watch": "webpack --watch --progress --colors"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.18.9",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.4.5",
     "assets-webpack-plugin": "^3.9.10",
