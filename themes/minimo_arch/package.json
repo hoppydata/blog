@@ -36,6 +36,6 @@
     "es6-docready": "^1.0.1",
     "hamburgers": "^1.2.1",
     "normalize.css": "8.0.1",
-    "twemoji": "^2.5.0"
+    "twemoji": "^14.0.2"
   }
 }
