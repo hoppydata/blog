@@ -2109,9 +2109,9 @@ error@^7.0.2:
     string-template "~0.2.1"
     xtend "~4.0.0"
 
-es6-docready@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/es6-docready/-/es6-docready-1.0.0.tgz#97774e9e1b6dd1510038763ff726d7b60120b645"
+es6-docready@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/es6-docready/-/es6-docready-1.0.1.tgz#fb483a6113ead69e7faba856f0fac391e056dcb6"
 
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.3, escape-string-regexp@^1.0.5:
   version "1.0.5"
